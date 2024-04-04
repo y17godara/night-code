@@ -1,9 +1,9 @@
-import AllotmentSection from '@/app/components/Allotment';
-import { Metadata } from 'next';
+import AllotmentSection from "@/app/components/Allotment";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Assisments | Yash Godara',
-  description: 'A simple allotment component for React',
+  title: "Assessment | Yash Godara @y17godara",
+  description: "A simple allotment component for React",
 };
 
 export default function Home() {
