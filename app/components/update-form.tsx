@@ -72,6 +72,7 @@ export function UsernameUpdateForm({
 
   return (
     <Form {...form}>
+      <h2 className="text-xl font-semibold">Update Username</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}

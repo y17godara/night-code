@@ -85,6 +85,7 @@ export function UsernameForm({
 
   return (
     <Form {...form}>
+      <h2 className="text-2xl font-semibold">Create User</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}

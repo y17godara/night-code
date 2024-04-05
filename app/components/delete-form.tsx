@@ -68,6 +68,7 @@ export function UsernameDeleteForm({
 
   return (
     <Form {...form}>
+      <h2 className="text-lg font-semibold">Delete User</h2>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
