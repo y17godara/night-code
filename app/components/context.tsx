@@ -51,7 +51,7 @@ export default function SheetSide() {
               <li>
                 The code is written in React, (NextJs), Css (Tailwind CSS), and
                 the API is written in NodeJs (App Router), and the database is
-                MongoDB with Prisma ORM and Deployed on Vercel (Its Free).
+                Postgresql with Prisma ORM and Deployed on Vercel (Its Free).
               </li>
               <li>
                 The code is written in a way that it can be easily understood
