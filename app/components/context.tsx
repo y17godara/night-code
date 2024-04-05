@@ -21,7 +21,7 @@ export default function SheetSide() {
       </SheetTrigger>
       <SheetContent className="text-white overflow-y-scroll">
         <SheetHeader>
-          <SheetTitle>Sumbitted by: Yash Godara</SheetTitle>
+          <SheetTitle>Submitted by: Yash Godara</SheetTitle>
           <SheetDescription className="hover:underline">
             <Link href="https://github.com/y17godara">
               https://github.com/y17godara
