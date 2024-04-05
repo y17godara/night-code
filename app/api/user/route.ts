@@ -99,6 +99,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     if (!user) {
+      console.log(user)
       console.log("User not found");
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }

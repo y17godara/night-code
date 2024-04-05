@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { set, z } from "zod";
 
 import { Button } from "./ui/button";
 import {
@@ -19,8 +19,16 @@ import { Input } from "./ui/input";
 import { updateSchema } from "../lib/validation";
 import { useToast } from "@/app/components/ui/use-toast";
 
-export function UsernameUpdateForm() {
-  const [loading, setLoading] = useState(false);
+export function UsernameUpdateForm({
+  updateReq,
+  loading,
+  handleLoading,
+}: {
+  updateReq: () => void;
+  loading: boolean;
+  handleLoading: (loading: boolean) => void;
+}) {
+  const [ms, setMs] = useState<any>(0);
 
   const form = useForm<z.infer<typeof updateSchema>>({
     resolver: zodResolver(updateSchema),
@@ -30,10 +38,10 @@ export function UsernameUpdateForm() {
     },
   });
 
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const onSubmit = async (data: z.infer<typeof updateSchema>) => {
-    setLoading(true);
+    handleLoading(true);
 
     try {
       const res = await fetch("/api/user", {
@@ -46,30 +54,19 @@ export function UsernameUpdateForm() {
 
       const json = await res.json();
 
+      setMs(json.ms);
+
       if (!res.ok) {
-        toast({
-          title: "Error",
-          description: json.error,
-          variant: "destructive",
-        });
+        console.error(json);
       }
 
       console.log(json);
-      toast({
-        title: json.status,
-        description: json.message,
-        variant: "default",
-      });
     } catch (error: any) {
       console.error(error);
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
     } finally {
       form.reset();
-      setLoading(false);
+      updateReq();
+      handleLoading(false);
     }
   };
 
@@ -106,9 +103,10 @@ export function UsernameUpdateForm() {
             </FormItem>
           )}
         />
-        <Button variant={"default"} type="submit">
+        <Button disabled={loading} variant={"default"} type="submit">
           Update
         </Button>
+        <div className="text-sm text-red-500">Updated in {ms}ms</div>
       </form>
     </Form>
   );

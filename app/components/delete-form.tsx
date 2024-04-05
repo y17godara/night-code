@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { set, z } from "zod";
 
 import { Button } from "./ui/button";
 import {
@@ -16,10 +16,10 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 
-import { inputSchema, updateSchema } from "../lib/validation";
+import { inputSchema } from "../lib/validation";
 // import { useToast } from "@/app/components/ui/use-toast";
 
-export function UsernameForm({
+export function UsernameDeleteForm({
   updateReq,
   loading,
   handleLoading,
@@ -29,7 +29,6 @@ export function UsernameForm({
   handleLoading: (loading: boolean) => void;
 }) {
   const [ms, setMs] = useState<any>(0);
-
   const form = useForm<z.infer<typeof inputSchema>>({
     resolver: zodResolver(inputSchema),
     defaultValues: {
@@ -44,7 +43,7 @@ export function UsernameForm({
 
     try {
       const res = await fetch("/api/user", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
@@ -52,30 +51,14 @@ export function UsernameForm({
       });
 
       const json = await res.json();
-
       setMs(json.ms);
 
       if (!res.ok) {
-        // toast({
-        //   title: "Error",
-        //   description: json.error,
-        //   variant: "destructive",
-        // });
       }
 
       console.log(json);
-      //   toast({
-      //     title: "Success",
-      //     description: json.message,
-      //     variant: "default",
-      //   });
     } catch (error: any) {
       console.error(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
     } finally {
       form.reset();
       updateReq();
@@ -102,9 +85,9 @@ export function UsernameForm({
           )}
         />
         <Button disabled={loading} variant={"default"} type="submit">
-          Submit
+          Delete
         </Button>
-        <div className="text-sm text-green-500">Created in {ms}ms</div>
+        <div className="text-sm text-blue-500">Deleted in {ms}ms</div>
       </form>
     </Form>
   );
