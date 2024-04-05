@@ -5,6 +5,8 @@ import Link from "next/link";
 
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
+import { UsernameForm } from "./form";
+import { UsernameUpdateForm } from "./update-form";
 
 export default function AllotmentSection() {
   return (
@@ -28,6 +30,7 @@ export default function AllotmentSection() {
                     >
                       <h2 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono">
                         Window 1
+                        <UsernameForm />
                       </h2>
                     </Allotment.Pane>
                     <Allotment.Pane
@@ -36,6 +39,7 @@ export default function AllotmentSection() {
                     >
                       <h2 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono">
                         Window 2
+                        <UsernameUpdateForm />
                       </h2>
                     </Allotment.Pane>
                   </Allotment>

@@ -1,6 +1,6 @@
 import db from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { inputSchema } from "@/app/lib/validation";
+import { inputSchema, updateSchema } from "@/app/lib/validation";
 
 export async function POST(req: NextRequest) {
   try {
@@ -43,9 +43,11 @@ export async function POST(req: NextRequest) {
 
     console.log(data);
     const responseTimeInMs = elapsed[0] * 1000 + elapsed[1] / 1000000;
-    return NextResponse.json({ message: data, ms: responseTimeInMs }, { status: 200 });
+    return NextResponse.json(
+      { message: data, ms: responseTimeInMs },
+      { status: 200 }
+    );
   } catch (error: any) {
-
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -63,7 +65,10 @@ export async function GET() {
     }
 
     const responseTimeInMs = elapsed[0] * 1000 + elapsed[1] / 1000000;
-    return NextResponse.json({ message: users, ms: responseTimeInMs }, { status: 200 });
+    return NextResponse.json(
+      { message: users, ms: responseTimeInMs },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -106,7 +111,10 @@ export async function DELETE(req: NextRequest) {
 
     console.log(data);
     const responseTimeInMs = elapsed[0] * 1000 + elapsed[1] / 1000000;
-    return NextResponse.json({ message: "User deleted", ms: responseTimeInMs }, { status: 200 });
+    return NextResponse.json(
+      { message: "User deleted", ms: responseTimeInMs },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -120,7 +128,7 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
 
     // Validate the input
-    const { username, newUsername } = inputSchema.parse(body);
+    const { username, newUsername } = updateSchema.parse(body);
 
     if (!username || !newUsername) {
       console.log("Username / NewUsername is required");
@@ -135,21 +143,24 @@ export async function PUT(req: NextRequest) {
         username: username as string,
       },
     });
-    
-        if (!user) {
-          console.log("User not found");
-          return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
 
-    const userExists = await db.user.findFirst({
+    if (!user) {
+      console.log("User not found");
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const userWithNewUsername = await db.user.findFirst({
       where: {
         username: newUsername as string,
       },
     });
 
-    if (userExists) {
-      console.log("User already exists");
-      return NextResponse.json({ error: "New username already exists" }, { status: 400 })
+    if (userWithNewUsername) {
+      console.log("New username already exists");
+      return NextResponse.json(
+        { error: "New username already exists" },
+        { status: 400 }
+      );
     }
 
     const data = await db.user.update({
@@ -163,7 +174,10 @@ export async function PUT(req: NextRequest) {
 
     console.log(data);
     const responseTimeInMs = elapsed[0] * 1000 + elapsed[1] / 1000000;
-    return NextResponse.json({ message: "User updated", ms: responseTimeInMs }, { status: 200 });
+    return NextResponse.json(
+      { message: "User updated", ms: responseTimeInMs },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -7,5 +7,9 @@ export const usernameSchema = z
 
 export const inputSchema = z.object({
     username: usernameSchema,
-    newUsername: usernameSchema.optional(),
+});
+
+export const updateSchema = z.object({
+    username: usernameSchema,
+    newUsername: usernameSchema,
 });
