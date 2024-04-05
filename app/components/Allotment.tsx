@@ -8,6 +8,7 @@ import "allotment/dist/style.css";
 import { UsernameForm } from "./form";
 import { UsernameUpdateForm } from "./update-form";
 import { UsernameDeleteForm } from "./delete-form";
+import Cotext from "./context";
 
 export default function AllotmentSection() {
   const [noOfRequests, setNoOfRequests] = useState<number>(0);
@@ -45,6 +46,7 @@ export default function AllotmentSection() {
   return (
     <main>
       <div className={"h-screen w-screen"}>
+        <Cotext />
         <Allotment vertical>
           <Allotment.Pane snap className="bg-neutral-800">
             <span></span>
@@ -115,7 +117,6 @@ export default function AllotmentSection() {
           <Allotment.Pane snap className="bg-neutral-800">
             <div className="flex flex-col w-full justify-center text-center text-slate-300 p-10">
               <h2>
-                NextJs 14 + TailwindCSS 3 +{" "}
                 <Link
                   href={"https://www.npmjs.com/package/allotment"}
                   className="underline duration-100 transition ease-in hover:text-white hover:underline-offset-2"
