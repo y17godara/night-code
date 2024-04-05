@@ -54,15 +54,31 @@ export function UsernameUpdateForm({
 
       const json = await res.json();
 
-      setMs(json.ms);
-
-      if (!res.ok) {
-        console.error(json);
+      if (res.ok) {
+        // If the request is successful, show a success toast
+        toast({
+          title: `Response ${res.status}`,
+          description: `${json.message} in ${json.ms}ms`,
+        });
+      } else {
+        // If the request fails, show an error toast
+        toast({
+          title: `Error ${res.status}`,
+          description: json.error || "An error occurred",
+          variant: "destructive",
+        });
       }
+
+      setMs(json.ms);
 
       console.log(json);
     } catch (error: any) {
       console.error(error);
+      toast({
+        title: "Error",
+        description: error.message || "An error occurred",
+        variant: "destructive",
+      });
     } finally {
       form.reset();
       updateReq();

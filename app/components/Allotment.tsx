@@ -63,7 +63,7 @@ export default function AllotmentSection() {
                       snap
                       className="bg-red-500 flex flex-col justify-center h-full w-full text-center items-center hover:bg-red-600 duration-100 transition ease-in"
                     >
-                      <div className="text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono">
+                      <div className="text-xs p-5 sm:text-sm md:text-base lg:text-lg font-bold font-mono">
                         Window 1
                         <UsernameForm
                           updateReq={updateNoOfRequests}
@@ -81,7 +81,7 @@ export default function AllotmentSection() {
                       snap
                       className="bg-green-500 flex flex-col justify-center h-full w-full text-center items-center hover:bg-green-600 duration-100 transition ease-in"
                     >
-                      <div className="text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono">
+                      <div className="text-xs p-5 sm:text-sm md:text-base lg:text-lg font-bold font-mono">
                         Window 2
                         <UsernameUpdateForm
                           updateReq={updateNoOfRequests}
@@ -96,7 +96,7 @@ export default function AllotmentSection() {
                   className="bg-sky-500 flex flex-col justify-center h-full w-full text-center items-center hover:bg-sky-600 duration-100 transition ease-in"
                   snap
                 >
-                  <div className="text-xs sm:text-sm md:text-base lg:text-lg font-bold font-mono">
+                  <div className="text-xs p-5 sm:text-sm md:text-base lg:text-lg font-bold font-mono">
                     Window 3
                     <h3>Total No of Requests (this session): {noOfRequests}</h3>
                     <button

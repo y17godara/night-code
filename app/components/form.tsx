@@ -17,7 +17,7 @@ import {
 import { Input } from "./ui/input";
 
 import { inputSchema, updateSchema } from "../lib/validation";
-// import { useToast } from "@/app/components/ui/use-toast";
+import { useToast } from "@/app/components/ui/use-toast";
 
 export function UsernameForm({
   updateReq,
@@ -37,7 +37,7 @@ export function UsernameForm({
     },
   });
 
-  //   const { toast } = useToast()
+  const { toast } = useToast();
 
   const onSubmit = async (data: z.infer<typeof inputSchema>) => {
     handleLoading(true);
@@ -53,29 +53,32 @@ export function UsernameForm({
 
       const json = await res.json();
 
-      setMs(json.ms);
-
-      if (!res.ok) {
-        // toast({
-        //   title: "Error",
-        //   description: json.error,
-        //   variant: "destructive",
-        // });
+      if (res.ok) {
+        // If the request is successful, show a success toast
+        toast({
+          title: `Response ${res.status}`,
+          description: `${json.message.username} in ${json.ms}ms`,
+        });
+      } else {
+        // If the request fails, show an error toast
+        toast({
+          title: `Error ${res.status}`,
+          description: json.error || "An error occurred",
+          variant: "destructive",
+        });
       }
 
+      setMs(json.ms);
       console.log(json);
-      //   toast({
-      //     title: "Success",
-      //     description: json.message,
-      //     variant: "default",
-      //   });
     } catch (error: any) {
       console.error(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.message,
-      //     variant: "destructive",
-      //   });
+      // If an error occurs during the request, show an error toast
+      console.error(error);
+      toast({
+        title: "Error",
+        description: error.message || "An error occurred",
+        variant: "destructive",
+      });
     } finally {
       form.reset();
       updateReq();
